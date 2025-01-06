@@ -16,3 +16,23 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
       MYSQL_DATABASE: laravel
+    volumes:
+      - db-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    container_name: phpmyadmin_container
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      # PMA_USER: test-user
+      # PMA_PASWORD: test-pass
+    ports:
+      - "80:80"
+    volumes:
+      - phpmyadmin-data:/sessions
+volumes:
+  db-data:
+  phpmyadmin-data:
+    
